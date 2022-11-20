@@ -1,0 +1,44 @@
+Week1:
+-	Decided project as a group
+-	Decided group roles of frontend and backend
+-	Joined Jira and Google Docs
+-	Worked on the User Stories and the Acceptance Criteria for Managers
+
+Week2:
+-	Created Storyboard for managers
+- had meetings with the group to discuss the places where improvements can be made
+
+Week3:
+- Adding workflow arrows for storyboards
+- Gather all the screenshots and storyboards
+- Adding storyboards on the shared proposal doc
+- Attended meetings
+
+Week4:
+- Attended group meetings
+- practiced writing code using react bootstrap js
+
+Week5:
+- allocated work from retrospective
+- made cards for Sprint 2
+
+Week6:
+- Worked on alignning the buttons
+- Worked on making the price change as the quantity changes
+
+Week7:
+- Worked on cards fixing small bugs
+
+Week8:
+- Worked on retrospective
+- Worked on cards fixing small bugs
+
+Week9:
+- Tried working on the backend test
+- Fixed bugs on ordering and flask
+
+Week10:
+- worked on the demo
+- worked on the final report
+
+
