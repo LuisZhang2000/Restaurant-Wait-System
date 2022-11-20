@@ -9,8 +9,8 @@ Download Node from: https://nodejs.org/en/. Installing the correct Node version 
 
 ## git
 
-After installing these, download the latest version of git for application management.
-Download git from: https://git-scm.com/downloads.
+After installing these, download the latest version of git for application management. Download git from: 
+- https://git-scm.com/downloads.
 
 ## Clone application from Github
 
