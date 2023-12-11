@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, Col, Row, Navbar as NavbarBs } from "react-bootstrap";
-import { Navbar } from "../components/Navbar";
+import { Col, Row, ButtonGroup, ToggleButton } from "react-bootstrap";
+import { Header } from "../components/Header";
 import { StoreItem } from "../components/StoreItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItemsNumber } from "../endpoints/cart";
@@ -84,26 +84,34 @@ export default function Dashboard() {
 
   return (
     <>
-      <Navbar
+      <Header
         tableNumber={tableNumber}
         setTableNumber={setTableNumber}
         cartItemsNumber={cartItemsNumber}
       />
-      <NavbarBs style={{ marginTop: "2px" }}>
+      <ButtonGroup
+        style={{
+          padding: "15px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         {categories.map((category, index) => (
-          <Button
-            id={category.id}
+          <ToggleButton
             key={parseInt(category.id)}
-            name={`category-button-${index + 1}`}
-            style={{ marginLeft: "15px" }}
-            className={active === category.id ? "active" : undefined}
-            onClick={(e) => setCategoryId(e.target.id)}
+            type="radio"
+            id={`category-button-${index + 1}`}
+            value={category.id}
+            variant={active === category.id ? "primary" : "light"}
+            onChange={() => setCategoryId(category.id)}
+            defaultChecked={active === category.id}
           >
             {category.name}
-          </Button>
+          </ToggleButton>
         ))}
-      </NavbarBs>
-      <Row xs={1} md={2} lg={3} className="g-3">
+      </ButtonGroup>
+      <Row xs={1} md={2} lg={3} className="g-3" style={{ padding: "0 20px" }}>
         {categoriesItems.map((item, index) => (
           <Col key={index}>
             <StoreItem
