@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, ButtonGroup, ToggleButton } from "react-bootstrap";
+import { Col, Row, ButtonGroup, ToggleButton, Button } from "react-bootstrap";
 import { Header } from "../components/Header";
 import { StoreItem } from "../components/StoreItem";
 import { useDispatch, useSelector } from "react-redux";
@@ -103,8 +103,8 @@ export default function Dashboard() {
             type="radio"
             id={`category-button-${index + 1}`}
             value={category.id}
-            variant={active === category.id ? "primary" : "light"}
-            onChange={() => setCategoryId(category.id)}
+            variant={active === Number(category.id) ? "primary" : "light"}
+            onChange={() => setCategoryId(Number(category.id))}
             defaultChecked={active === category.id}
           >
             {category.name}
@@ -126,7 +126,16 @@ export default function Dashboard() {
           ))}
         </Row>
       ) : (
-        <h1>No items available for this category</h1>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <h1>No items available for this category</h1>
+          <Button onClick={() => setCategoryId(0)}>Back to Full Menu</Button>
+        </div>
       )}
     </>
   );
