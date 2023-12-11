@@ -111,19 +111,23 @@ export default function Dashboard() {
           </ToggleButton>
         ))}
       </ButtonGroup>
-      <Row xs={1} md={2} lg={3} className="g-3" style={{ padding: "0 20px" }}>
-        {categoriesItems.map((item, index) => (
-          <Col key={index}>
-            <StoreItem
-              index={index}
-              {...item}
-              tableNumber={tableNumber}
-              addedItem={addedItem}
-              setAddedItem={setAddedItem}
-            />
-          </Col>
-        ))}
-      </Row>
+      {categoriesItems.length > 0 ? (
+        <Row xs={1} md={2} lg={3} className="g-3" style={{ padding: "0 20px" }}>
+          {categoriesItems.map((item, index) => (
+            <Col key={index}>
+              <StoreItem
+                index={index}
+                {...item}
+                tableNumber={tableNumber}
+                addedItem={addedItem}
+                setAddedItem={setAddedItem}
+              />
+            </Col>
+          ))}
+        </Row>
+      ) : (
+        <h1>No items available for this category</h1>
+      )}
     </>
   );
 }
