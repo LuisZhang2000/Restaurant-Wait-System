@@ -16,23 +16,20 @@ export default function Dashboard() {
   const [categories, setCategories] = useState([]);
   const [categoriesItems, setCategoriesItems] = useState([]);
   const [categoryId, setCategoryId] = useState(0);
-  const [changed, setChanged] = useState(0);
   const [tableNumber, setTableNumber] = useState(savedTableNumber);
 
-  /**
-   * Triggers upon clicking on a category
-   * setChanged will be called to trigger useEffect to update displayed items from the newly selected category
-   * setActive is called to highlight the selected category button
-   *
-   * @param event selected category
-   */
   const changeCategory = (event) => {
     setCategoryId(event.target.id);
-    setChanged(event.target.id);
     setActive(event.target.id);
   };
 
-  useEffect(() => {
+  /**
+   * displays menu items that are included in the selected category
+   * this function is called every time the selected category is changed
+   *
+   * @param id categoryId
+   */
+  function displayCategory() {
     getAllCategories()
       .then((response) => {
         if (response.ok) {
@@ -61,7 +58,11 @@ export default function Dashboard() {
           setCategoriesItems(data.data);
         }
       });
-  }, [changed]);
+  }
+
+  useEffect(() => {
+    displayCategory();
+  }, [categoryId]);
 
   useEffect(() => {
     dispatch.tableInformation.setSavedTableNumber(tableNumber);
