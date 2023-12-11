@@ -49,3 +49,24 @@ Then in the second terminal, run the following command in the root folder to sta
 - npm start
 
 You should now be able to see the frontend of the application after brief loading on your preferred browser.
+
+# Screenshots
+
+Customer Screen
+
+![image](https://github.com/LuisZhang2000/Restaurant-Wait-System/assets/42627737/918ed461-e10b-4fd4-9071-5f487b604455)
+
+Wait Staff Screen
+
+![image](https://github.com/LuisZhang2000/Restaurant-Wait-System/assets/42627737/cb74c9c7-9b2b-4703-8d5f-63f9d222b028)
+
+Kitchen Staff Screen
+
+![image](https://github.com/LuisZhang2000/Restaurant-Wait-System/assets/42627737/0b0ca37f-12fc-4554-bdf5-9caec1f5ceea)
+
+Manager Staff Screen
+
+![image](https://github.com/LuisZhang2000/Restaurant-Wait-System/assets/42627737/845261e0-9e29-4d2d-9863-6ba0be8273bc)
+
+
+
