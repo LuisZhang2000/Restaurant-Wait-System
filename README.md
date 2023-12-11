@@ -39,10 +39,11 @@ Install the required backend packages by running the following commands:
 
 # Running the Application
 
-We are now ready to run the application. Start off by opening two terminals. In the first terminal, navigate to the backend folder and run the command below to start the backend (if python3 is not recognised then replace python3 with python instead):
-- python3 -m flask run
+We are now ready to run the application. Start off by opening two terminals. In the first terminal, navigate to the backend folder and run the command below to start the backend:
+- python3 -m flask run (on Mac/Linux)
+- python -m flask run (on Windows)
 
-
+If python is not recognised, use "py" instead of "python" and vice versa
 
 Then in the second terminal, run the following command in the root folder to start the frontend:
 - npm start
