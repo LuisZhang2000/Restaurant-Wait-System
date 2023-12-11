@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button, Col, Row, Navbar as NavbarBs } from "react-bootstrap";
 import { Navbar } from "../components/Navbar";
 import { StoreItem } from "../components/StoreItem";
@@ -10,18 +10,13 @@ export default function Dashboard() {
   const dispatch = useDispatch(); // redux state management for table number
   const { savedTableNumber } = useSelector((state) => state.tableInformation);
 
-  const [addedItem, setAddedItem] = useState(0);
-  const [cartItemsNumber, setCartItemsNumber] = useState(0);
-  const [active, setActive] = useState("");
-  const [categories, setCategories] = useState([]);
-  const [categoriesItems, setCategoriesItems] = useState([]);
-  const [categoryId, setCategoryId] = useState(0);
-  const [tableNumber, setTableNumber] = useState(savedTableNumber);
-
-  const changeCategory = (event) => {
-    setCategoryId(event.target.id);
-    setActive(event.target.id);
-  };
+  const [addedItem, setAddedItem] = React.useState(0);
+  const [cartItemsNumber, setCartItemsNumber] = React.useState(0);
+  const [active, setActive] = React.useState(0);
+  const [categories, setCategories] = React.useState([]);
+  const [categoriesItems, setCategoriesItems] = React.useState([]);
+  const [categoryId, setCategoryId] = React.useState(0);
+  const [tableNumber, setTableNumber] = React.useState(savedTableNumber);
 
   /**
    * displays menu items that are included in the selected category
@@ -29,7 +24,7 @@ export default function Dashboard() {
    *
    * @param id categoryId
    */
-  function displayCategory() {
+  const displayCategory = React.useCallback(() => {
     getAllCategories()
       .then((response) => {
         if (response.ok) {
@@ -58,17 +53,18 @@ export default function Dashboard() {
           setCategoriesItems(data.data);
         }
       });
-  }
-
-  useEffect(() => {
-    displayCategory();
+    setActive(categoryId);
   }, [categoryId]);
 
-  useEffect(() => {
+  React.useEffect(() => {
+    displayCategory();
+  }, [categoryId, displayCategory]);
+
+  React.useEffect(() => {
     dispatch.tableInformation.setSavedTableNumber(tableNumber);
   }, [tableNumber]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     getCartItemsNumber(tableNumber)
       .then((response) => {
         if (response.ok) {
@@ -94,34 +90,31 @@ export default function Dashboard() {
         cartItemsNumber={cartItemsNumber}
       />
       <NavbarBs style={{ marginTop: "2px" }}>
-        {categories &&
-          categories.map((category, index) => (
-            <Button
-              id={category.id}
-              key={parseInt(category.id)}
-              name={`category-button-${index + 1}`}
-              style={{ marginLeft: "15px" }}
-              className={active === category.id ? "active" : undefined}
-              onClick={changeCategory}
-            >
-              {category.name}
-            </Button>
-          ))}
+        {categories.map((category, index) => (
+          <Button
+            id={category.id}
+            key={parseInt(category.id)}
+            name={`category-button-${index + 1}`}
+            style={{ marginLeft: "15px" }}
+            className={active === category.id ? "active" : undefined}
+            onClick={(e) => setCategoryId(e.target.id)}
+          >
+            {category.name}
+          </Button>
+        ))}
       </NavbarBs>
       <Row xs={1} md={2} lg={3} className="g-3">
-        {categoriesItems &&
-          categoriesItems.map((item, index) => (
-            <Col>
-              <StoreItem
-                key={index}
-                index={index}
-                {...item}
-                tableNumber={tableNumber}
-                addedItem={addedItem}
-                setAddedItem={setAddedItem}
-              />
-            </Col>
-          ))}
+        {categoriesItems.map((item, index) => (
+          <Col key={index}>
+            <StoreItem
+              index={index}
+              {...item}
+              tableNumber={tableNumber}
+              addedItem={addedItem}
+              setAddedItem={setAddedItem}
+            />
+          </Col>
+        ))}
       </Row>
     </>
   );
