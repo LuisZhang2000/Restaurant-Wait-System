@@ -55,6 +55,8 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
-    "cypress": "^11.0.1"
+    "cypress": "^11.0.1",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2"
   }
 }
