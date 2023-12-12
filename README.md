@@ -2,15 +2,14 @@
 
 ## NodeJS and NPM
 
-Start off by installing the latest stable versions of NodeJS and NPM. The following versions of NodeJS and NPM are recommended for effective usage of the application:
+Installing the latest stable versions of NodeJS and NPM. The following versions of NodeJS and NPM are recommended for effective usage of the application:
 - Node Version: v16.17.0
 - NPM Version: 8.15.0
 Download Node from: https://nodejs.org/en/. Installing the correct Node version will also install the correct npm version. You can verify versions by running node -v and npm -v. 
 
 ## git
 
-After installing these, download the latest version of git for application management. Download git from: 
-- https://git-scm.com/downloads.
+Download the latest version of git for application management https://git-scm.com/downloads.
 
 ## Clone application from Github
 
@@ -19,7 +18,7 @@ Clone the application through the SSH method by running:
 
 ## Installing frontend packages
 
-After successful cloning, go into the project repository on your terminal and run:
+After cloning, go into the project repository on your terminal and run:
 - npm install
 
 This will install all relevant frontend packages needed for the application. You should now be able to see the packages being installed in your local repository from your terminal. This should take approximately 2 minutes.
