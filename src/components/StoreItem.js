@@ -1,137 +1,167 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 import { Button, Card, Modal, Form } from "react-bootstrap"
-import { formatCurrency } from '../utilities/formatCurrency'
-import { useSnackbar } from 'notistack';
-import { addItemToCart } from '../endpoints/cart';
+import { formatCurrency } from "../utilities/formatCurrency"
+import { useSnackbar } from "notistack"
+import { addItemToCart } from "../endpoints/cart"
 
-export function StoreItem({ index, id, name, price, image, tableNumber, ingredients, extras, available, addedItem, setAddedItem, unavailableIngredients }) {
-    const quantity = 0; 
-    const [show, setShow] = useState(false);
-  
-    const handleShow = () => setShow(true);
-    const handleClose = () => setShow(false);
+export function StoreItem({
+  index,
+  id,
+  name,
+  price,
+  image,
+  tableNumber,
+  ingredients,
+  extras,
+  available,
+  addedItem,
+  setAddedItem,
+  unavailableIngredients,
+}) {
+  const [show, setShow] = useState(false)
 
-    const { enqueueSnackbar } = useSnackbar();
-    const handleClick = () => {
-        enqueueSnackbar('Added to cart', { variant: 'success' });
-    }
-    
-    return (<>
-        <Card className="h-100">
-            <Card.Img variant="top" src={image} height="200px" style={{ objectFit: "cover", cursor: "pointer"}} onClick={handleShow}/>
-            {available === false && <span className="badge badge-pill bg-danger">Unavailable</span>}
-            <Card.Body className="d-flex flex-column">
-                <Card.Title className="d-flex justify-content-between align-items-baseline mb-4">
-                <span className="fs-2">{name}</span>
-                <span className="ms-2 text-muted">{formatCurrency(price)}</span>
-                </Card.Title>
-                <div className="mt-auto">
-                    <Button 
-                        name={`add-to-cart-item-${index + 1}`}
-                        disabled={available === false}
-                        className="w-100"
-                        onClick={() => {
-                            addItemToCart(tableNumber, id);
-                            setAddedItem(addedItem + 1);
-                            handleClick();
-                        }}
-                    >
-                        + Add To Cart
-                    </Button>
-                </div>
+  const handleShow = () => setShow(true)
+  const handleClose = () => setShow(false)
+
+  const { enqueueSnackbar } = useSnackbar()
+  const handleClick = () => {
+    enqueueSnackbar("Added to cart", { variant: "success" })
+  }
+
+  return (
+    <>
+      <Card className="h-100">
+        <Card.Img
+          variant="top"
+          src={image}
+          height="200px"
+          style={{ objectFit: "cover", cursor: "pointer" }}
+          onClick={handleShow}
+        />
+        {available === false && (
+          <span className="badge badge-pill bg-danger">Unavailable</span>
+        )}
+        <Card.Body className="d-flex flex-column">
+          <Card.Title className="d-flex justify-content-between align-items-baseline mb-4">
+            <span className="fs-2">{name}</span>
+            <span className="ms-2 text-muted">{formatCurrency(price)}</span>
+          </Card.Title>
+          <div className="mt-auto">
+            <Button
+              name={`add-to-cart-item-${index + 1}`}
+              disabled={available === false}
+              className="w-100"
+              onClick={() => {
+                addItemToCart(tableNumber, id)
+                setAddedItem(addedItem + 1)
+                handleClick()
+              }}
+            >
+              Add To Cart
+            </Button>
+          </div>
         </Card.Body>
-        </Card>
+      </Card>
 
-        <Modal
-            show={show}
-            onHide={() => setShow(false)}
-            size="xl"
-        >
+      <Modal show={show} onHide={() => setShow(false)} size="xl">
         <Modal.Header closeButton>
-            <Button onClick={handleClose}>Back</Button>
+          <Button onClick={handleClose}>Back</Button>
         </Modal.Header>
         <Modal.Body className="d-flex flex-row">
-            <div className="d-flex flex-column" style={{flex: 1, margin: '20px'}}>
-                <img src={image} alt={name} height="500" style={{ objectFit: "cover" }} className="mb-3"/>
-                <div className="d-flex justify-content-between align-items-baseline">
-                    <span className="fs-2">{name}</span>
-                    <span className="fs-2">{formatCurrency(price)}</span>
-                </div>
+          <div
+            className="d-flex flex-column"
+            style={{ flex: 1, margin: "20px" }}
+          >
+            <img
+              src={image}
+              alt={name}
+              height="500"
+              style={{ objectFit: "cover" }}
+              className="mb-3"
+            />
+            <div className="d-flex justify-content-between align-items-baseline">
+              <span className="fs-2">{name}</span>
+              <span className="fs-2">{formatCurrency(price)}</span>
             </div>
-            <div className="d-flex flex-column justify-content-between" style={{flex: 1, margin: '20px'}}>
-                <div>
-                    <h1>Ingredients</h1>
-                    {ingredients.map((ingredient, index) => (
-                        <Form key={index}>
-                            <div key={`checkbox-${ingredient}`}>
-                            <Form.Check 
-                                inline
-                                type="checkbox"
-                                id={`checkbox-${ingredient}`}
-                                label={ingredient}
-                                defaultChecked={true}
-                            />
-                            </div>
-                        </Form>
-                    ))}   
-                    {unavailableIngredients.map((unavailableIngredient, index) => (
-                        <Form key={index}>
-                            <div key={`checkbox-${unavailableIngredient}`}>
-                            <Form.Check 
-                                inline
-                                type="checkbox"
-                                id={`checkbox-${unavailableIngredient}`}
-                                label= {`${unavailableIngredient} (unavailable)`}
-                                defaultChecked={false}
-                                disabled
-                            />
-                            </div>
-                        </Form>
-                    ))}   
-                </div>         
-                <div>
-                    <h1>Extras</h1>
-                    {extras.map((extra, index) => (
-                        <Form key={index}>
-                            <div key={`checkbox-${extra}`}>
-                            <Form.Check 
-                                inline
-                                type="checkbox"
-                                id={`checkbox-${extra}`}
-                                label={extra}
-                                defaultChecked={false}
-                            />
-                            </div>
-                        </Form>
-                    ))}   
-                </div>
-                
-            <Button 
-                disabled={available === false}
-                onClick={() => {
-                    addItemToCart(tableNumber, id);
-                    setAddedItem(addedItem + 1);
-                    handleClick()
-                    setShow(false)
-                }}
-            >+ Add to Cart</Button>
+          </div>
+          <div
+            className="d-flex flex-column justify-content-between"
+            style={{ flex: 1, margin: "20px" }}
+          >
+            <div>
+              <h1>Ingredients</h1>
+              {ingredients.map((ingredient, index) => (
+                <Form key={index}>
+                  <div key={`checkbox-${ingredient}`}>
+                    <Form.Check
+                      inline
+                      type="checkbox"
+                      id={`checkbox-${ingredient}`}
+                      label={ingredient}
+                      defaultChecked={true}
+                    />
+                  </div>
+                </Form>
+              ))}
+              {unavailableIngredients.map((unavailableIngredient, index) => (
+                <Form key={index}>
+                  <div key={`checkbox-${unavailableIngredient}`}>
+                    <Form.Check
+                      inline
+                      type="checkbox"
+                      id={`checkbox-${unavailableIngredient}`}
+                      label={`${unavailableIngredient} (unavailable)`}
+                      defaultChecked={false}
+                      disabled
+                    />
+                  </div>
+                </Form>
+              ))}
             </div>
-        </Modal.Body>
-        </Modal>
+            <div>
+              <h1>Extras</h1>
+              {extras.map((extra, index) => (
+                <Form key={index}>
+                  <div key={`checkbox-${extra}`}>
+                    <Form.Check
+                      inline
+                      type="checkbox"
+                      id={`checkbox-${extra}`}
+                      label={extra}
+                      defaultChecked={false}
+                    />
+                  </div>
+                </Form>
+              ))}
+            </div>
 
-        <Modal
-            onHide={() => {
+            <Button
+              disabled={available === false}
+              onClick={() => {
+                addItemToCart(tableNumber, id)
+                setAddedItem(addedItem + 1)
+                handleClick()
                 setShow(false)
-            }}
-            size="sm"
-            centered
-        >
-            <Modal.Header closeButton>
-            <Modal.Title id="example-modal-sizes-title-sm">
-                Success
-            </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Added {name} to cart</Modal.Body>
-        </Modal>
-    </>)
+              }}
+            >
+              + Add to Cart
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        onHide={() => {
+          setShow(false)
+        }}
+        size="sm"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-sm">Success</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Added {name} to cart</Modal.Body>
+      </Modal>
+    </>
+  )
 }
