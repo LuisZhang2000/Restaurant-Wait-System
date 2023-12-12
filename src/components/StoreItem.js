@@ -18,10 +18,7 @@ export function StoreItem({
   setAddedItem,
   unavailableIngredients,
 }) {
-  const [show, setShow] = useState(false)
-
-  const handleShow = () => setShow(true)
-  const handleClose = () => setShow(false)
+  const [showItem, setShowItem] = useState(false)
 
   const { enqueueSnackbar } = useSnackbar()
   const handleClick = () => {
@@ -36,7 +33,7 @@ export function StoreItem({
           src={image}
           height="200px"
           style={{ objectFit: "cover", cursor: "pointer" }}
-          onClick={handleShow}
+          onClick={() => setShowItem(true)}
         />
         {available === false && (
           <span className="badge badge-pill bg-danger">Unavailable</span>
@@ -50,7 +47,6 @@ export function StoreItem({
             <Button
               name={`add-to-cart-item-${index + 1}`}
               disabled={available === false}
-              className="w-100"
               onClick={() => {
                 addItemToCart(tableNumber, id)
                 setAddedItem(addedItem + 1)
@@ -63,9 +59,9 @@ export function StoreItem({
         </Card.Body>
       </Card>
 
-      <Modal show={show} onHide={() => setShow(false)} size="xl">
+      <Modal show={showItem} onHide={() => setShowItem(false)} size="xl">
         <Modal.Header closeButton>
-          <Button onClick={handleClose}>Back</Button>
+          <Button onClick={() => setShowItem(false)}>Back</Button>
         </Modal.Header>
         <Modal.Body className="d-flex flex-row">
           <div
@@ -141,7 +137,7 @@ export function StoreItem({
                 addItemToCart(tableNumber, id)
                 setAddedItem(addedItem + 1)
                 handleClick()
-                setShow(false)
+                setShowItem(false)
               }}
             >
               + Add to Cart
@@ -152,7 +148,7 @@ export function StoreItem({
 
       <Modal
         onHide={() => {
-          setShow(false)
+          setShowItem(false)
         }}
         size="sm"
         centered
