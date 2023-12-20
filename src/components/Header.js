@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react"
+import { useNavigate } from "react-router-dom"
 import {
   Button,
   Container,
@@ -7,8 +7,8 @@ import {
   Navbar,
   InputGroup,
   Modal,
-} from "react-bootstrap";
-import { raiseAssistance, getAssistanceRaised } from "../endpoints/table";
+} from "react-bootstrap"
+import { raiseAssistance, getAssistanceRaised } from "../endpoints/table"
 
 export function Header({
   tableNumber,
@@ -16,38 +16,38 @@ export function Header({
   cartItemsNumber,
   disableTableEdit,
 }) {
-  const navigateTo = useNavigate();
-  const [showTableModal, setShowTableModal] = useState(false);
-  const [showAssistModal, setShowAssistModal] = useState(false);
-  const [tempTableNumber, setTempTableNumber] = useState(tableNumber);
-  const [disableAssistance, setDisableAssistance] = useState(false);
+  const navigateTo = useNavigate()
+  const [showTableModal, setShowTableModal] = React.useState(false)
+  const [showAssistModal, setShowAssistModal] = React.useState(false)
+  const [tempTableNumber, setTempTableNumber] = React.useState(tableNumber)
+  const [isAssistanceDisabled, setIsAssistanceDisabled] = React.useState(false)
 
   const assistClose = () => {
-    setShowAssistModal(false);
-    setDisableAssistance(true);
-  };
+    setShowAssistModal(false)
+    setIsAssistanceDisabled(true)
+  }
 
   // set the inital value of raise 'Assistance Needed' button
-  useEffect(() => {
+  React.useEffect(() => {
     const polling = setInterval(() => {
       getAssistanceRaised(tableNumber)
         .then((response) => {
           if (response.ok) {
-            return response.json();
+            return response.json()
           } else {
-            return null;
+            return null
           }
         })
         .then((data) => {
-          setDisableAssistance(data.data);
-        });
-    }, 1500);
+          setIsAssistanceDisabled(data.data)
+        })
+    }, 1500)
 
-    return () => clearInterval(polling);
-  }, []);
+    return () => clearInterval(polling)
+  }, [])
 
   if (tableNumber === null && showTableModal === false) {
-    setShowTableModal(true);
+    setShowTableModal(true)
   }
 
   return (
@@ -57,7 +57,7 @@ export function Header({
           <h1
             style={{ cursor: "pointer" }}
             onClick={() => {
-              navigateTo("/");
+              navigateTo("/")
             }}
           >
             Majic Cafe
@@ -69,7 +69,6 @@ export function Header({
         >
           <Button
             name="table-number-button"
-            variant="primary"
             disabled={disableTableEdit}
             onClick={() => setShowTableModal(true)}
           >
@@ -78,26 +77,26 @@ export function Header({
               : `Table ${tableNumber}`}
           </Button>
           <Button
-            variant="primary"
-            disabled={disableAssistance}
+            disabled={isAssistanceDisabled}
             onClick={() => {
               raiseAssistance(tableNumber).then(() => {
-                setShowAssistModal(true);
-              });
+                setShowAssistModal(true)
+              })
             }}
           >
-            {disableAssistance ? "Waiter on the way..." : "Request Assistance"}
+            {isAssistanceDisabled ? "Waiter on the way" : "Request Assistance"}
           </Button>
           <Button
             name="my-orders-button"
-            variant="primary"
             onClick={() => {
-              navigateTo(`/${tableNumber}/orders`);
+              navigateTo(`/${tableNumber}/orders`)
             }}
           >
             My Orders
           </Button>
         </div>
+
+        {/* Table Number Modal */}
         <Modal show={showTableModal} onHide={() => setShowTableModal(false)}>
           <Modal.Header closeButton>
             <Modal.Title>Enter Table Number</Modal.Title>
@@ -118,7 +117,7 @@ export function Header({
                 aria-describedby="table-prepend-text"
                 defaultValue={tableNumber}
                 onChange={(e) => {
-                  setTempTableNumber(e.target.value);
+                  setTempTableNumber(e.target.value)
                 }}
               />
             </InputGroup>
@@ -129,14 +128,16 @@ export function Header({
               variant="success"
               disabled={tempTableNumber === "" || tempTableNumber === null}
               onClick={() => {
-                setTableNumber(tempTableNumber);
-                setShowTableModal(false);
+                setTableNumber(tempTableNumber)
+                setShowTableModal(false)
               }}
             >
               Save
             </Button>
           </Modal.Footer>
         </Modal>
+
+        {/* Wait Staff Assistance Modal */}
         <Modal show={showAssistModal} onHide={assistClose}>
           <Modal.Header closeButton>
             <Modal.Title>Assistance has been requested</Modal.Title>
@@ -148,13 +149,15 @@ export function Header({
             </Button>
           </Modal.Footer>
         </Modal>
+
+        {/* Cart Button */}
         <Button
           name="my-cart-button"
           style={{ width: "3rem", height: "3rem", position: "relative" }}
           variant="outline-primary"
           className="rounded-circle"
           onClick={() => {
-            navigateTo(`/${tableNumber}/cart`);
+            navigateTo(`/${tableNumber}/cart`)
           }}
         >
           <svg
@@ -181,5 +184,5 @@ export function Header({
         </Button>
       </Container>
     </Navbar>
-  );
+  )
 }
