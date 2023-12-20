@@ -90,8 +90,8 @@ export function StoreItem({
           >
             <div>
               <h1>Ingredients</h1>
-              {ingredients.map((ingredient, index) => (
-                <Form key={index}>
+              <Form>
+                {ingredients.map((ingredient) => (
                   <div key={`checkbox-${ingredient}`}>
                     <Form.Check
                       inline
@@ -101,10 +101,10 @@ export function StoreItem({
                       defaultChecked={true}
                     />
                   </div>
-                </Form>
-              ))}
-              {unavailableIngredients.map((unavailableIngredient, index) => (
-                <Form key={index}>
+                ))}
+              </Form>
+              <Form>
+                {unavailableIngredients.map((unavailableIngredient) => (
                   <div key={`checkbox-${unavailableIngredient}`}>
                     <Form.Check
                       inline
@@ -115,13 +115,13 @@ export function StoreItem({
                       disabled
                     />
                   </div>
-                </Form>
-              ))}
+                ))}
+              </Form>
             </div>
             <div>
               <h1>Extras</h1>
-              {extras.map((extra, index) => (
-                <Form key={index}>
+              <Form key={index}>
+                {extras.map((extra) => (
                   <div key={`checkbox-${extra}`}>
                     <Form.Check
                       inline
@@ -131,8 +131,8 @@ export function StoreItem({
                       defaultChecked={false}
                     />
                   </div>
-                </Form>
-              ))}
+                ))}
+              </Form>
             </div>
 
             <Button
