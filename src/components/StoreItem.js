@@ -24,7 +24,10 @@ export function StoreItem({
   const [showItem, setShowItem] = useState(false)
 
   const { enqueueSnackbar } = useSnackbar()
+
   const handleClick = () => {
+    addItemToCart(tableNumber, id)
+    setAddedItem(addedItem + 1)
     enqueueSnackbar("Added to cart", { variant: "success" })
   }
 
@@ -51,8 +54,6 @@ export function StoreItem({
               name={`add-to-cart-item-${index + 1}`}
               disabled={available === false}
               onClick={() => {
-                addItemToCart(tableNumber, id)
-                setAddedItem(addedItem + 1)
                 handleClick()
               }}
             >
@@ -137,8 +138,6 @@ export function StoreItem({
             <Button
               disabled={available === false}
               onClick={() => {
-                addItemToCart(tableNumber, id)
-                setAddedItem(addedItem + 1)
                 handleClick()
                 setShowItem(false)
               }}
