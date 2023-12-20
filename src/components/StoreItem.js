@@ -28,7 +28,7 @@ export function StoreItem({
   const handleClick = () => {
     addItemToCart(tableNumber, id)
     setAddedItem(addedItem + 1)
-    enqueueSnackbar("Added to cart", { variant: "success" })
+    enqueueSnackbar(`Added ${name} to cart`, { variant: "success" })
   }
 
   return (
@@ -142,23 +142,10 @@ export function StoreItem({
                 setShowItem(false)
               }}
             >
-              + Add to Cart
+              Add to Cart
             </Button>
           </div>
         </Modal.Body>
-      </Modal>
-
-      <Modal
-        onHide={() => {
-          setShowItem(false)
-        }}
-        size="sm"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-sm">Success</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Added {name} to cart</Modal.Body>
       </Modal>
     </>
   )
