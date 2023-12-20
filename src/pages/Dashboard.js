@@ -117,7 +117,7 @@ export default function Dashboard() {
             <Col key={index}>
               <StoreItem
                 index={index}
-                {...item}
+                item={item}
                 tableNumber={tableNumber}
                 addedItem={addedItem}
                 setAddedItem={setAddedItem}

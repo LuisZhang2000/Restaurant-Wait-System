@@ -5,19 +5,22 @@ import { useSnackbar } from "notistack"
 import { addItemToCart } from "../endpoints/cart"
 
 export function StoreItem({
+  item,
   index,
-  id,
-  name,
-  price,
-  image,
   tableNumber,
-  ingredients,
-  extras,
-  available,
   addedItem,
   setAddedItem,
-  unavailableIngredients,
 }) {
+  const {
+    id,
+    name,
+    price,
+    image,
+    ingredients,
+    extras,
+    available,
+    unavailableIngredients,
+  } = item
   const [showItem, setShowItem] = useState(false)
 
   const { enqueueSnackbar } = useSnackbar()
